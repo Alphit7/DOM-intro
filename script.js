@@ -68,7 +68,7 @@ function createSection(i) {
     let backgroundColor = getComputedStyle(section).backgroundColor;
     let brightness = parseInt(backgroundColor.match(/\d+/g).join('')) / 255;
     let color;
-    if(brightness > 120){
+    if(brightness > 180){
         color = 'black';
     }
     else{
