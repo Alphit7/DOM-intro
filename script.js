@@ -1,7 +1,7 @@
 document.title = "Modifying the DOM";
-console.log(document.title);
+/*console.log(document.title);
 document.body.style.backgroundColor = "rgb(12,200,159)";
-/*for(let child of document.body.children){
+for(let child of document.body.children){
     console.log(child.textContent);
 }*/
 /*let important = document.querySelectorAll('.important');
@@ -47,35 +47,41 @@ let learners = [
   "Sylvain",
   "Willy",
 ];
-function randomize(learners){
-    for (let i = learners.length - 1; i > 0; i--) {
-      let x = Math.floor(Math.random() * (i + 1));
-      [learners[i], learners[x]] = [learners[x], learners[i]];
-    }
-    return learners;
+function randomize(learners) {
+  for (let i = learners.length - 1; i > 0; i--) {
+    let x = Math.floor(Math.random() * (i + 1));
+    [learners[i], learners[x]] = [learners[x], learners[i]];
   }
+  return learners;
+}
+function generateRandomColor() {
+  const r = Math.floor(Math.random() * 256); 
+  const g = Math.floor(Math.random() * 256); 
+  const b = Math.floor(Math.random() * 256); 
+  return `rgb(${r}, ${g}, ${b})`;
+}
 function createSection(i) {
   if (i < learners.length) {
     let article = document.querySelector("article");
     let section = document.createElement("section");
-    section.style.backgroundColor =
-      "#" + Math.floor(Math.random() * 16777215).toString(16);
-    article.appendChild(section);
+    let color = generateRandomColor()
+    section.style.backgroundColor = color;
     let p = document.createElement("p");
+    article.appendChild(section);
     section.appendChild(p);
     p.textContent = learners[i];
-    createSection(i + 1);
-    let backgroundColor = getComputedStyle(section).backgroundColor;
-    let brightness = parseInt(backgroundColor.match(/\d+/g).join('')) / 255;
-    let color;
-    if(brightness > 180){
-        color = 'black';
+    let backgroundColor = window.getComputedStyle(section).backgroundColor;
+    let brightness = parseInt(backgroundColor.match(/\d+/g).join("")) / 1000;
+    let background;
+    if(brightness < 150){
+      background = '#FFFFFF';
     }
     else{
-        color='white';
+      background = '#000000';
     }
-    section.style.color = color;
+    section.style.color = background;
+    createSection(i + 1);
   }
 }
-randomize(learners)
+randomize(learners);
 createSection(0);
